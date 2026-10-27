@@ -42,3 +42,28 @@ Generated Parquet outputs, checkpoints, raw local data, virtual environments, an
 ## Disclaimer
 
 This project uses synthetic transaction data for educational and demonstration purposes. It is not connected to a bank, UPI payment provider, or production fraud-detection system.
+
+## Live HTML dashboard
+
+The repository now includes a standalone HTML/CSS/JavaScript dashboard backed by a local Python + DuckDB API. It reads the V4 Parquet outputs rather than generating fake transactions.
+
+### Start it
+
+Activate the existing project virtual environment from the repository root, then run:
+
+    python dashboard/api.py
+
+Open http://127.0.0.1:8765.
+
+The UI includes transaction KPIs, status/value charts, search and filters, CSV export, a risk view, velocity alerts, quarantine inspection, theme switching, and configurable display threshold/refresh interval.
+
+API endpoints: /api/health, /api/summary, /api/transactions, /api/alerts, /api/velocity, /api/quarantine, /api/settings.
+
+**Threshold distinction:** changing the dashboard display threshold does not change Spark's processing configuration or rewrite existing Parquet. To change processing, set UPI_HIGH_VALUE_THRESHOLD before starting Spark. Velocity windows overlap and should not be interpreted as unique fraud incidents without further correlation.
+
+The API binds to localhost by default and has no authentication; do not expose it publicly as-is. Chart.js loads from a CDN and requires internet access. This remains an educational synthetic-data project, not a bank-connected or production fraud decision system.
+
+### Dashboard API tests
+
+    python -m pip install duckdb pytest
+    python -m pytest tests/test_dashboard_api.py -v
