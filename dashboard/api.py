@@ -53,7 +53,7 @@ def read_dataset(name):
 def transactions():
     rows = read_dataset("normal") + read_dataset("flagged")
     for row in rows:
-        row["risk_level"] = "HIGH" if str(row.get("risk_level", "")).upper() == "HIGH" or number(row.get("amount")) >= current_threshold() else "NORMAL"
+        row["risk_level"] = "HIGH" if number(row.get("amount")) >= current_threshold() else "NORMAL"
         row["status"] = str(row.get("status") or "UNKNOWN").upper()
         row["event_time"] = row.get("event_time") or row.get("event_timestamp")
     rows.sort(key=lambda r: str(r.get("event_time") or ""), reverse=True)
