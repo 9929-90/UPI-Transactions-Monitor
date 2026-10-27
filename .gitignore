@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Spark and generated data
+data/processed/
+data/quarantine/
+data/checkpoints/
+data/raw/
+data/kafka/
+tmp/
+spark-warehouse/
+
+# Logs
+*.log
+
+# IDE and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.bak
