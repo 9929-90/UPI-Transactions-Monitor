@@ -13,6 +13,7 @@ from pyspark.sql.functions import (
     when,
     trim,
     window,
+    isnan,
 )
 from pyspark.sql.types import (
     StructType,
@@ -153,8 +154,13 @@ parsed = parsed.withColumn(
         lit("missing_transaction_id"),
     )
     .when(
-        col("amount").isNull(),
+        col("amount").isNull() | isnan(col("amount")),
         lit("missing_or_invalid_amount"),
+    )
+    .when(
+        (col("amount") == float("inf"))
+        | (col("amount") == float("-inf")),
+        lit("invalid_amount"),
     )
     .when(
         col("amount") <= 0,
