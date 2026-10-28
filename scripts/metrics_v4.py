@@ -8,7 +8,7 @@ BASE = ROOT / "data"
 DATASETS = {
     "normal": BASE / "processed" / "transactions_v4" / "normal",
     "high_value": BASE / "processed" / "transactions_v4" / "flagged",
-    "velocity": BASE / "processed" / "transactions_v4" / "velocity_flags",
+    "velocity": BASE / "processed" / "transactions_v4" / "velocity_flags_v2",
     "quarantine": BASE / "quarantine" / "transactions_v4",
 }
 
